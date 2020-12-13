@@ -31,7 +31,7 @@ server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
-const wss = WebSocket.server({server : server });
+const wss = new WebSocket.Server({server : server });
 
 wss.on("connection", function(ws) {
   ws.on("message", function(message){
