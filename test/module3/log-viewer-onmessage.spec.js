@@ -44,9 +44,6 @@ describe('log-viewer.js', () => {
       "right.body.body[0].expression.right.object.name": "event",
       "right.body.body[0].expression.right.property.name" : "data"
     }
-    console.log('xxxx', JSON.stringify(onmessage,censor(onmessage)));
-    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-    console.log('xxxx', JSON.stringify(onmessageMatch, censor(onmessageMatch)));
     assert(matchObj(onmessage, onmessageMatch), 'Are you setting the `innerHTML` property of `logWindow` to `event.data`?');
   });
 });
