@@ -1,3 +1,19 @@
+function censor(censor) {
+  var i = 0;
+
+  return function(key, value) {
+    if(i !== 0 && typeof(censor) === 'object' && typeof(value) == 'object' && censor == value) 
+      return '[Circular]'; 
+
+    if(i >= 29) // seems to be a harded maximum of 30 serialized objects?
+      return '[Unknown]';
+
+    ++i; // so we know we aren't using the original object anymore
+
+    return value;  
+  }
+}
+
 describe('log-viewer.js', () => {
   it('should display the message from the WebSocket server @log-viewer-onmessage', () => {
     assert(fs.existsSync(path.join(process.cwd(), "public/javascripts/log-viewer.js")),
@@ -28,7 +44,9 @@ describe('log-viewer.js', () => {
       "right.body.body[0].expression.right.object.name": "event",
       "right.body.body[0].expression.right.property.name" : "data"
     }
-    console.log("onmessage",onmessage);
-    //assert(matchObj(onmessage, onmessageMatch), 'Are you setting the `innerHTML` property of `logWindow` to `event.data`?');
+    console.log('xxxx', JSON.stringify(onmessage,censor(onmessage)));
+    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+    console.log('xxxx', JSON.stringify(onmessageMatch, censor(onmessageMatch)));
+    assert(matchObj(onmessage, onmessageMatch), 'Are you setting the `innerHTML` property of `logWindow` to `event.data`?');
   });
 });

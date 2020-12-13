@@ -1,13 +1,10 @@
 const connection = new WebSocket("ws://localhost:3000");
 const logWindow = document.querySelector("#log-window");
 
-connection.onopen = function () {
-    connection.send("Hello from the client!");
-
+connection.onmessage =  (event) => {
+    logWindow.innerHTML = event.data;
 }
 
-connection.onmessage  = function (event ) {
-    console.log("eventxxx", event);
-    logWindow.innerHTML = event.data;
-
+connection.onopen =  () => {
+    connection.send("Hello from the client!");
 }
